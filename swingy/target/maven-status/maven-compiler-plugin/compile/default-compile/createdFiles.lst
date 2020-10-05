@@ -1,0 +1,10 @@
+model\Fists.class
+controller\Game.class
+model\Map.class
+swingy\Swingy.class
+model\Weapon.class
+model\Character.class
+controller\Database.class
+model\Armor.class
+views\Console.class
+model\Helmet.class
