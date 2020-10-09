@@ -1,11 +1,17 @@
 package controller;
 
 import java.io.*;
+import java.util.Set;
 
 import model.*;
 import model.Character;
 
 import static controller.Game.game;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 public class Database {
     public static PrintWriter writer;
@@ -27,6 +33,8 @@ public class Database {
     }
 
     public static void loadHero(String Name) throws IOException {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
         BufferedReader reader = new BufferedReader(new FileReader("./save.txt"));
         String line = reader.readLine();
         Character Hero = null;
@@ -56,6 +64,10 @@ public class Database {
                 Map.setSize(Integer.parseInt(line.split(" ")[1]));
             line = reader.readLine();
         }
+        Set<ConstraintViolation<Character>> constraintViolations = validator.validate(Hero);
+
+        for (ConstraintViolation<Character> violation : constraintViolations)
+            System.out.println("oof");
         Map.loadMap(Map.getSize());
         game(Hero);
     }

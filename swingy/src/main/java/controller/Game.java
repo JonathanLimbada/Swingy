@@ -4,13 +4,15 @@ import model.Character;
 import model.Enemy;
 import model.Map;
 import views.Console;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
+import javax.validation.*;
+import javax.validation.constraints.Null;
 
 import static controller.Database.saveHero;
 import static views.Console.*;
@@ -21,9 +23,17 @@ public class Game {
     private static Enemy bad = null;
 
     public static void makeHero (String Name, String Race) throws IOException {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
         Hero = new Character();
         Hero.setName(Name);
         Hero.setRace(Race);
+        Set<ConstraintViolation<Character>> constraintViolations = validator.validate(Hero);
+
+        for (ConstraintViolation<Character> violation : constraintViolations)
+            System.out.println(violation.getMessage());
+        if (constraintViolations.size() > 0)
+            Welcome();
         Map = new Map(Hero);
         saveHero(Hero, Map);
         game(Hero);

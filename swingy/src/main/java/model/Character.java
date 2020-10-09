@@ -1,7 +1,14 @@
 package model;
 
+import javax.validation.constraints.*;
+
 public class Character {
+        @NotNull
+        @NotBlank(message = "Hero name must not be blank")
         private String			name;
+
+        @NotNull
+        @NotBlank(message = "Hero Race must not be blank")
         private String			race;
         private int             defence;
         private	int				healthPoints;

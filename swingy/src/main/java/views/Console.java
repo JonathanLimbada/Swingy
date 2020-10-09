@@ -30,7 +30,7 @@ public class Console {
         System.out.println("retreat successful");
     }
 
-    public void Welcome() throws IOException {
+    public static void Welcome() throws IOException {
         System.out.println("Welcome to Swingy!");
         System.out.println("press '1' to Create a hero");
         System.out.println("press '2' to Select a previously created hero");
@@ -56,7 +56,7 @@ public class Console {
         makeHero(Name, Race);
     }
 
-    public void oldHero () throws IOException {
+    public static void oldHero () throws IOException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("./save.txt"));
             String line = null;
